@@ -49,8 +49,8 @@ public class TicketService {
 //            if(!optionalPassenger.isPresent()){
 //                throw new Exception("Invalid passenger id");
 //            }
-            Passenger passenger = passengerRepository.findById(passengerId).get();
-            passengers.add(passenger);
+            passengers.add(passengerRepository.findById(passengerId).get());
+
         }
 //        Optional<Passenger> optionalPassenger = passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
 //        if(!optionalPassenger.isPresent()){
@@ -58,7 +58,7 @@ public class TicketService {
 //        }
 
         Passenger passenger = passengerRepository.findById(bookTicketEntryDto.getBookingPersonId()).get();
-        Passenger bookedPassenger = passenger;
+//        Passenger bookedPassenger = passenger;
 
 //        Optional<Train> optionalTrain = trainRepository.findById(bookTicketEntryDto.getTrainId());
 //        if(!optionalTrain.isPresent()){
@@ -120,7 +120,7 @@ public class TicketService {
         train.getBookedTickets().add(ticket);
         train.setNoOfSeats(train.getNoOfSeats()-bookTicketEntryDto.getNoOfSeats());
 
-        bookedPassenger.getBookedTickets().add(ticket);
+        passenger.getBookedTickets().add(ticket);
 
         trainRepository.save(train);
         Ticket savedTicket = ticketRepository.save(ticket);
