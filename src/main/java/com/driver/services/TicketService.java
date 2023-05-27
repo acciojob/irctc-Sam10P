@@ -45,24 +45,27 @@ public class TicketService {
 
         List<Passenger> passengers = new ArrayList<>();
         for(int passengerId : bookTicketEntryDto.getPassengerIds()){
-            Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-            if(!optionalPassenger.isPresent()){
-                throw new Exception("Invalid passenger id");
-            }
-            passengers.add(optionalPassenger.get());
+//            Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
+//            if(!optionalPassenger.isPresent()){
+//                throw new Exception("Invalid passenger id");
+//            }
+            Passenger passenger = passengerRepository.findById(passengerId).get();
+            passengers.add(passenger);
         }
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
-        if(!optionalPassenger.isPresent()){
-            throw new Exception("Invalid Booking Passenger id");
-        }
+//        Optional<Passenger> optionalPassenger = passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
+//        if(!optionalPassenger.isPresent()){
+//            throw new Exception("Invalid Booking Passenger id");
+//        }
 
-        Passenger bookedPassenger = optionalPassenger.get();
+        Passenger passenger = passengerRepository.findById(bookTicketEntryDto.getBookingPersonId()).get();
+        Passenger bookedPassenger = passenger;
 
-        Optional<Train> optionalTrain = trainRepository.findById(bookTicketEntryDto.getTrainId());
-        if(!optionalTrain.isPresent()){
-            throw new Exception("Invalid Booking Passenger id");
-        }
-        Train train = optionalTrain.get();
+//        Optional<Train> optionalTrain = trainRepository.findById(bookTicketEntryDto.getTrainId());
+//        if(!optionalTrain.isPresent()){
+//            throw new Exception("Invalid Booking Passenger id");
+//        }
+        Train train = trainRepository.findById(bookTicketEntryDto.getTrainId()).get();
+//        Train train = optionalTrain.get();
 
         int bookedSeats = 0;
         List<Ticket> booked = train.getBookedTickets();
